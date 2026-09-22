@@ -20,8 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CasaJuntaTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    TarefasScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
