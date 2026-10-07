@@ -14,14 +14,15 @@ val CasaJuntaSecondaryLight = Color(0xFFFFE1DD)
 // Fundos e superficies
 
 val CasaJuntaBackground = Color(0xFFFAF9F6)
-val CasaJuntaSurface = Color(0xFFFFFFFF)
-val CasaJuntaSurfaceVariant = Color(0xFFF2F3F1)
+val CasaJuntaSurface = Color(0xFFfaf7f4)
+val CasaJuntaSurfaceVariant = Color(0xFFFCFAF5)
 
+val CasaJuntaGreen = Color(0xFF0D7363)
 // Textos
 
 val CasaJuntaTextPrimary = Color(0xFF073B4C)
 val CasaJuntaTextSecondary = Color(0xFF52666D)
-val CasaJuntaTextOnPrimary = Color(0xFFFFFFFF)
+val CasaJuntaTextOnPrimary = Color(0xFFf9f6f3)
 
 // Cores semâticas
 
@@ -38,3 +39,5 @@ val CasaJuntaErrorLight = Color(0xFFFFDFDC)
 
 val CasaJuntaBorder = Color(0xFFE2E7E5)
 val CasaJuntaDisabled = Color(0xFFB9C3C1)
+
+val CasaJuntaClicado = Color(0xFFDBF1E8)

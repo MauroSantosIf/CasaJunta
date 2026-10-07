@@ -12,6 +12,7 @@ private val CasaJuntaColorScheme = lightColorScheme(
 
     secondary = CasaJuntaSecondary,
     onSecondary = CasaJuntaTextOnPrimary,
+    secondaryContainer = CasaJuntaClicado,
 
     // Fundo
     background = CasaJuntaBackground,
@@ -31,6 +32,9 @@ private val CasaJuntaColorScheme = lightColorScheme(
     // Bordas
     outline = CasaJuntaBorder
 )
+
+
+
 
 @Composable
 fun CasaJuntaTheme(
