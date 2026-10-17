@@ -1,43 +1,48 @@
+
 package br.edu.ifal.casajunta
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import br.edu.ifal.casajunta.ui.screens.myHouses.MyHousesScreen
+import br.edu.ifal.casajunta.ui.screens.myHouses.MyHousesScreen
 import br.edu.ifal.casajunta.ui.screens.onboarding.OnboardingScreen
 import br.edu.ifal.casajunta.ui.theme.CasaJuntaTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
+
         setContent {
             CasaJuntaTheme {
-                OnboardingScreen()
+
+                // Controla qual tela será exibida
+                var telaAtual by remember {
+                    mutableStateOf("ONBOARDING")
+                }
+
+                when (telaAtual) {
+
+                    "ONBOARDING" -> {
+                        OnboardingScreen(
+                            onMoradorClick = {
+                                telaAtual = "MINHAS_CASAS"
+                            }
+                        )
+                    }
+                    "MINHAS_CASAS" -> {
+                        MyHousesScreen()
+                    }
+                }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CasaJuntaTheme {
-        Greeting("Android")
     }
 }

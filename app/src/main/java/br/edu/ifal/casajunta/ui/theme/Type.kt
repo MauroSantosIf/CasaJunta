@@ -1,26 +1,36 @@
 package br.edu.ifal.casajunta.ui.theme
 
+import br.edu.ifal.casajunta.R
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+
+val NunitoSans = FontFamily(
+    Font(
+        resId = R.font.nunito_sans
+    )
+)
 val Typography = Typography(
+
+
 
     // Títulos principais das telas
     headlineLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
-        lineHeight = 34.sp
+        fontFamily = NunitoSans,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 35.sp,
+        lineHeight = 0.sp
     ),
 
     // Títulos secundários
     headlineMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
-        fontSize = 22.sp,
+        fontSize = 30.sp,
         lineHeight = 28.sp
     ),
 
@@ -48,8 +58,8 @@ val Typography = Typography(
 
     // Texto normal
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
+        fontFamily = FontFamily.Serif,
+        fontWeight = FontWeight.ExtraBold,
         fontSize = 16.sp,
         lineHeight = 24.sp
     ),
