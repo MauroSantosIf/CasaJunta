@@ -2,6 +2,7 @@ package br.edu.ifal.casajunta.ui.screens.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Groups
+import androidx.compose.material.icons.rounded.DarkMode
+import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,6 +28,8 @@ import br.edu.ifal.casajunta.ui.theme.CasaJuntaTheme
 
 @Composable
 fun HomeHeader(
+    isDarkTheme: Boolean,
+    onToggleTheme: () -> Unit,
     onNotificationsClick: () -> Unit,
     onHouseProfileClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -41,14 +46,37 @@ fun HomeHeader(
             style = MaterialTheme.typography.headlineMedium,
             color = CasaJuntaTheme.extendedColors.primaryDark,
         )
-        IconButton(onClick = onNotificationsClick) {
-            Icon(
-                imageVector = Icons.Rounded.Notifications,
-                contentDescription = stringResource(R.string.home_cd_notifications),
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            IconButton(onClick = onToggleTheme) {
+                Icon(
+                    imageVector = if (isDarkTheme) {
+                        Icons.Rounded.LightMode
+                    } else {
+                        Icons.Rounded.DarkMode
+                    },
+                    contentDescription = stringResource(
+                        if (isDarkTheme) {
+                            R.string.home_theme_to_light
+                        } else {
+                            R.string.home_theme_to_dark
+                        },
+                    ),
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+            IconButton(onClick = onNotificationsClick) {
+                Icon(
+                    imageVector = Icons.Rounded.Notifications,
+                    contentDescription = stringResource(R.string.home_cd_notifications),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+            HouseProfileButton(onClick = onHouseProfileClick)
         }
-        HouseProfileButton(onClick = onHouseProfileClick)
     }
 }
 
