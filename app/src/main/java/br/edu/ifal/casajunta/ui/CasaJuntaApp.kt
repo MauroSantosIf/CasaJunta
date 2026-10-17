@@ -14,7 +14,10 @@ import br.edu.ifal.casajunta.ui.navigation.TopLevelDestination
 import br.edu.ifal.casajunta.ui.screens.home.HomeRoute
 
 @Composable
-fun CasaJuntaApp() {
+fun CasaJuntaApp(
+    isDarkTheme: Boolean,
+    onToggleTheme: () -> Unit,
+) {
     val selectedDestination by rememberSaveable(
         stateSaver = Saver(
             save = { it.name },
@@ -36,6 +39,10 @@ fun CasaJuntaApp() {
             )
         },
     ) { innerPadding ->
-        HomeRoute(modifier = Modifier.padding(innerPadding))
+        HomeRoute(
+            isDarkTheme = isDarkTheme,
+            onToggleTheme = onToggleTheme,
+            modifier = Modifier.padding(innerPadding),
+        )
     }
 }
