@@ -3,6 +3,8 @@ package br.edu.ifal.casajunta.ui.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 
 private val CasaJuntaColorScheme = lightColorScheme(
 
@@ -29,16 +31,33 @@ private val CasaJuntaColorScheme = lightColorScheme(
     onError = CasaJuntaTextOnPrimary,
 
     // Bordas
-    outline = CasaJuntaBorder
+    outline = CasaJuntaBorder,
 )
+
+private val CasaJuntaExtendedColorScheme = CasaJuntaExtendedColors(
+    primaryDark = CasaJuntaPrimaryDark,
+    primaryLight = CasaJuntaPrimaryLight,
+    warning = CasaJuntaWarning,
+)
+
+object CasaJuntaTheme {
+    val extendedColors: CasaJuntaExtendedColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCasaJuntaExtendedColors.current
+}
 
 @Composable
 fun CasaJuntaTheme(
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
-    MaterialTheme(
-        colorScheme = CasaJuntaColorScheme,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(
+        LocalCasaJuntaExtendedColors provides CasaJuntaExtendedColorScheme,
+    ) {
+        MaterialTheme(
+            colorScheme = CasaJuntaColorScheme,
+            typography = Typography,
+            content = content,
+        )
+    }
 }
