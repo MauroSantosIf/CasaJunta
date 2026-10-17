@@ -20,6 +20,8 @@
     <string name="home_bills_none">Nenhuma conta</string>
     <string name="home_pantry_title">Despensa</string>
     <string name="home_pantry_none">Nada em falta</string>
+    <string name="home_theme_to_dark">Ativar tema escuro</string>
+    <string name="home_theme_to_light">Ativar tema claro</string>
     <string name="home_cd_notifications">Notificações</string>
     <string name="home_cd_house_profile">Perfil da casa</string>
     <string name="home_cd_add_member">Adicionar morador</string>
