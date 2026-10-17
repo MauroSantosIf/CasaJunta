@@ -2,9 +2,11 @@ package br.edu.ifal.casajunta
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
@@ -31,6 +33,16 @@ class MainActivity : ComponentActivity() {
             }
             val isSystemDark = isSystemInDarkTheme()
             val isDarkTheme = themeMode.isDark(isSystemDark)
+            DisposableEffect(isDarkTheme) {
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(
+                        android.graphics.Color.TRANSPARENT,
+                        android.graphics.Color.TRANSPARENT,
+                    ) { isDarkTheme },
+                    navigationBarStyle = SystemBarStyle.auto(lightScrim, darkScrim) { isDarkTheme },
+                )
+                onDispose {}
+            }
             CasaJuntaTheme(darkTheme = isDarkTheme) {
                 CasaJuntaApp(
                     isDarkTheme = isDarkTheme,
@@ -38,5 +50,10 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    private companion object {
+        val lightScrim = 0xE6FFFFFF.toInt()
+        val darkScrim = 0x801B1B1B.toInt()
     }
 }
