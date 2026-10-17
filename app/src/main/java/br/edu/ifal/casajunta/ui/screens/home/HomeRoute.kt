@@ -11,6 +11,8 @@ import br.edu.ifal.casajunta.data.home.FakeHomeRepository
 
 @Composable
 fun HomeRoute(
+    isDarkTheme: Boolean,
+    onToggleTheme: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(
         factory = viewModelFactory {
@@ -23,6 +25,8 @@ fun HomeRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
         uiState = uiState,
+        isDarkTheme = isDarkTheme,
+        onToggleTheme = onToggleTheme,
         onNotificationsClick = {},
         onHouseProfileClick = {},
         onAddMemberClick = {},
