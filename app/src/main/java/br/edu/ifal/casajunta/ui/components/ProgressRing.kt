@@ -10,7 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import br.edu.ifal.casajunta.ui.theme.CasaJuntaTheme
@@ -40,10 +41,10 @@ fun ProgressRing(
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 private fun ProgressRingPreview() {
-    CasaJuntaTheme {
+    CasaJuntaTheme(darkTheme = isSystemInDarkTheme()) {
         ProgressRing(progress = 8f / 12f) {
             Text(
                 text = "8/12",
