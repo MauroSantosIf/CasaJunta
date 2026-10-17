@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import br.edu.ifal.casajunta.ui.screens.onboarding.OnboardingScreen
 import br.edu.ifal.casajunta.ui.theme.CasaJuntaTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,11 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CasaJuntaTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TarefasScreen(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                OnboardingScreen()
             }
         }
     }
