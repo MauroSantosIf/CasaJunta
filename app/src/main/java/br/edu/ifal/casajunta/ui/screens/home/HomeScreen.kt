@@ -1,6 +1,8 @@
 package br.edu.ifal.casajunta.ui.screens.home
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -24,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import br.edu.ifal.casajunta.R
 import br.edu.ifal.casajunta.data.home.HomeSummary
@@ -39,6 +42,8 @@ import br.edu.ifal.casajunta.ui.theme.Spacing
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
+    isDarkTheme: Boolean,
+    onToggleTheme: () -> Unit,
     onNotificationsClick: () -> Unit,
     onHouseProfileClick: () -> Unit,
     onAddMemberClick: () -> Unit,
@@ -77,6 +82,8 @@ fun HomeScreen(
                     verticalArrangement = Arrangement.spacedBy(Spacing.sectionGap),
                 ) {
                     HomeHeader(
+                        isDarkTheme = isDarkTheme,
+                        onToggleTheme = onToggleTheme,
                         onNotificationsClick = onNotificationsClick,
                         onHouseProfileClick = onHouseProfileClick,
                     )
@@ -164,14 +171,29 @@ internal fun previewHomeUiState(): HomeUiState.Success = toUiState(
     ),
 )
 
-@Preview(name = "Default", showBackground = true)
+@PreviewLightDark
 @Preview(name = "Font scale 1.3", showBackground = true, fontScale = 1.3f)
+@Preview(
+    name = "Font scale 1.3 dark",
+    showBackground = true,
+    fontScale = 1.3f,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
 @Preview(name = "Width 360", showBackground = true, widthDp = 360)
+@Preview(
+    name = "Width 360 dark",
+    showBackground = true,
+    widthDp = 360,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
 @Composable
 private fun HomeScreenPreview() {
-    CasaJuntaTheme {
+    val darkTheme = isSystemInDarkTheme()
+    CasaJuntaTheme(darkTheme = darkTheme) {
         HomeScreen(
             uiState = previewHomeUiState(),
+            isDarkTheme = darkTheme,
+            onToggleTheme = {},
             onNotificationsClick = {},
             onHouseProfileClick = {},
             onAddMemberClick = {},
