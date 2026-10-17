@@ -14,7 +14,8 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import br.edu.ifal.casajunta.ui.navigation.TopLevelDestination
 import br.edu.ifal.casajunta.ui.theme.CasaJuntaTheme
@@ -68,10 +69,10 @@ fun CasaJuntaBottomBar(
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 private fun CasaJuntaBottomBarPreview() {
-    CasaJuntaTheme {
+    CasaJuntaTheme(darkTheme = isSystemInDarkTheme()) {
         CasaJuntaBottomBar(
             destinations = TopLevelDestination.entries,
             selected = TopLevelDestination.Overview,
