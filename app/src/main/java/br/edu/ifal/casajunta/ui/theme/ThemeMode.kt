@@ -1,3 +1,4 @@
+
 package br.edu.ifal.casajunta.ui.theme
 
 enum class ThemeMode {
@@ -12,8 +13,9 @@ fun ThemeMode.isDark(isSystemDark: Boolean): Boolean = when (this) {
     ThemeMode.Dark -> true
 }
 
-fun ThemeMode.toggled(isSystemDark: Boolean): ThemeMode = if (isDark(isSystemDark)) {
-    ThemeMode.Light
-} else {
-    ThemeMode.Dark
-}
+fun ThemeMode.toggled(isSystemDark: Boolean): ThemeMode =
+    if (isDark(isSystemDark)) {
+        ThemeMode.Light
+    } else {
+        ThemeMode.Dark
+    }

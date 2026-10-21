@@ -29,9 +29,10 @@ import br.edu.ifal.casajunta.R
 
 @Composable
 fun LoginScreen(
+    uiState: LoginUiState,
     onVoltarClick: () -> Unit,
     onEntrarClick: (String, String) -> Unit = { _, _ -> }
-) {
+){
     val colors = MaterialTheme.colorScheme
 
     var email by rememberSaveable { mutableStateOf("") }
@@ -168,9 +169,20 @@ fun LoginScreen(
 
         Spacer(Modifier.weight(1f))
 
+        if (uiState is LoginUiState.Error) {
+            Text(
+                text = uiState.message,
+                color = colors.error,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(bottom = 12.dp)
+            )
+        }
+
         Button(
             onClick = { onEntrarClick(email, senha) },
-            enabled = email.isNotBlank() && senha.isNotBlank(),
+            enabled = email.isNotBlank() &&
+                    senha.isNotBlank() &&
+                    uiState != LoginUiState.Loading,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp),
@@ -180,10 +192,18 @@ fun LoginScreen(
                 contentColor = colors.onPrimary
             )
         ) {
-            Text(
-                text = "Entrar",
-                style = MaterialTheme.typography.labelLarge
-            )
+            if (uiState == LoginUiState.Loading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(22.dp),
+                    color = colors.onPrimary,
+                    strokeWidth = 2.dp
+                )
+            } else {
+                Text(
+                    text = "Entrar",
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
         }
 
         Spacer(Modifier.height(18.dp))

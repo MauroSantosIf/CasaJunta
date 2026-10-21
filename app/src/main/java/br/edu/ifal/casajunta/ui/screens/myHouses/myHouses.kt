@@ -1,167 +1,76 @@
 
 package br.edu.ifal.casajunta.ui.screens.myHouses
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import br.edu.ifal.casajunta.R
 
 @Composable
-fun MyHousesScreen() {
-
+fun MyHousesScreen(
+    onEntrarCasaClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .statusBarsPadding()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
+        Text(
+            text = "CasaJunta",
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.primary,
+            fontWeight = FontWeight.Bold
+        )
 
-        MyHousesHeader()
+        Spacer(modifier = Modifier.height(24.dp))
 
-    }
-}
+        Text(
+            text = "Minhas Casas",
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.onBackground
+        )
 
-@Composable
-fun MyHousesHeader() {
+        Spacer(modifier = Modifier.height(12.dp))
 
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
+        Text(
+            text = "Escolha uma casa para continuar.",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
 
-        // 1. Cabeçalho superior do aplicativo
-        Row(
+        Spacer(modifier = Modifier.height(32.dp))
+
+        Button(
+            onClick = onEntrarCasaClick,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(
-                    start = 24.dp,
-                    end = 24.dp,
-                    top = 16.dp,
-                    bottom = 16.dp
-                ),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .height(52.dp)
         ) {
-
-            // Nome do aplicativo
-            Text(
-                text = "CasaJunta",
-                style = MaterialTheme.typography.headlineMedium.copy(
-                    fontFamily = FontFamily.Default,
-                    fontStyle = FontStyle.Normal,
-                    fontWeight = FontWeight.Bold
-                ),
-                color = MaterialTheme.colorScheme.onBackground
-            )
-
-            // Área dos ícones
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                // Notificações
-                IconButton(
-                    onClick = { }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Notifications,
-                        contentDescription = "Notificações",
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                }
-
-                // Perfil do usuário
-                Surface(
-                    shape = CircleShape,
-                    color = MaterialTheme.colorScheme.secondaryContainer
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = "Perfil",
-                        modifier = Modifier.padding(10.dp),
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                }
-            }
+            Text("Entrar na casa")
         }
 
-        // 2. Faixa ilustrada
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(170.dp)
-        ) {
+        Spacer(modifier = Modifier.height(12.dp))
 
-            // Imagem ocupando toda a largura
-            Image(
-                painter = painterResource(
-                    id = R.drawable.header_myhouses
-                ),
-                contentDescription = null,
-                modifier = Modifier.matchParentSize(),
-                contentScale = ContentScale.FillBounds
-            )
-
-            // 3. Título e subtítulo sobre a imagem
-            Column(
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(
-                        start = 24.dp,
-                        end = 24.dp,
-                        top = 20.dp
-                    )
-            ) {
-
-                Text(
-                    text = "Minhas casas",
-                    style = MaterialTheme.typography.headlineLarge.copy(
-                        fontFamily = FontFamily.Default,
-                        fontStyle = FontStyle.Normal,
-                        fontWeight = FontWeight.ExtraBold
-                    ),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-
-                Spacer(
-                    modifier = Modifier.height(6.dp)
-                )
-
-                Text(
-                    text = "Escolha uma casa para continuar",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontFamily = FontFamily.Default,
-                        fontStyle = FontStyle.Normal
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
+        Text(
+            text = "A seleção de casas será integrada futuramente.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
     }
 }
