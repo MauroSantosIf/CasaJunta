@@ -2,240 +2,150 @@ package br.edu.ifal.casajunta.ui.screens.onboarding
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.outlined.MailOutline
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import br.edu.ifal.casajunta.R
-import br.edu.ifal.casajunta.ui.theme.CasaJuntaGreen
-
-
 
 @Composable
 fun OnboardingScreen(
-    onMoradorClick: () -> Unit
+    onMoradorClick: () -> Unit,
+    onCriarCasaClick: () -> Unit = {},
+    onEntrarCasaClick: () -> Unit = {}
 ) {
     var opcaoSelecionada by remember {
         mutableStateOf<String?>(null)
     }
+    val colors = MaterialTheme.colorScheme
 
-
-    Column(
+    BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(colors.background)
+            .safeDrawingPadding()
     ) {
+        val screenHeight = maxHeight
 
-
-        Row(
-            modifier = Modifier.padding(top = 30.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            Image(
-                painter = painterResource(R.drawable.logo),
-                contentDescription = "Logo CasaJunta",
-                modifier = Modifier.size(96.dp),
-                contentScale = ContentScale.Crop
-            )
-
-            Spacer(
-                modifier = Modifier.width(8.dp)
-            )
-
-            Text(
-                text = "CasaJunta",
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.offset(y = 8.dp)
-            )
-        }
-
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(600.dp)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            Image(
-                painter = painterResource(R.drawable.image_central),
-                contentDescription = "Ilustração de uma casa",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(245.dp),
-                contentScale = ContentScale.Crop
-            )
+            Spacer(Modifier.height(40.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    painter = painterResource(R.drawable.casajunta_logo),
+                    contentDescription = "Logo CasaJunta",
+                    modifier = Modifier.size(44.dp)
+                )
+                Spacer(Modifier.width(10.dp))
+                Text(
+                    "CasaJunta",
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = colors.onBackground
+                )
+            }
+            Spacer(Modifier.height(10.dp))
             Text(
-                text = "Mais que uma casa,\numa vida em conjunto.",
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontFamily = FontFamily.Default,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 22.sp,
-                    lineHeight = 20.sp
-                ),
-                color = MaterialTheme.colorScheme.onBackground,
+                "Mais que uma casa,\numa vida em conjunto.",
+                style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .padding(top = 16.dp)
+                color = colors.onSurfaceVariant
             )
-
-
-
+            Spacer(Modifier.height(36.dp))
+            Image(
+                painter = painterResource(R.drawable.casajunta_illustration),
+                contentDescription = "Casa entre árvores",
+                modifier = Modifier.fillMaxWidth().aspectRatio(390f / 230f),
+                contentScale = ContentScale.FillBounds
+            )
+            // A ilustração e o painel se sobrepõem em 24 dp.
+            // O espaçamento negativo é implementado com offset apenas no painel;
+            // a altura extra compensa o deslocamento para não deixar rodapé vazio.
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .offset(y = 215.dp),
-                shape = RoundedCornerShape(
-                    topStart = 32.dp,
-                    topEnd = 32.dp
-                ),
-                color = MaterialTheme.colorScheme.surface
+                    .offset(y = (-24).dp)
+                    .heightIn(min = (screenHeight - 360.dp).coerceAtLeast(450.dp) + 24.dp),
+                shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+                color = colors.surface
             ) {
-
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(
-                            start = 24.dp,
-                            end = 24.dp,
-                            top = 20.dp,
-                            bottom = 24.dp
-                        )
+                        .padding(start = 10.dp, end = 10.dp, top = 28.dp, bottom = 26.dp)
                 ) {
-
                     Text(
-                        text = "Qual é o seu papel na casa?",
+                        "Qual é o seu papel na casa?",
                         style = MaterialTheme.typography.headlineMedium,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = colors.onSurface
                     )
-
-                    Spacer(
-                        modifier = Modifier.height(16.dp)
-                    )
-
-
-                    // Opção: Morador
+                    Spacer(Modifier.height(16.dp))
                     OpcaoPapelCard(
                         titulo = "Sou morador(a)",
                         descricao = "Já faço parte da casa",
                         icone = Icons.Default.People,
                         selecionado = opcaoSelecionada == "MORADOR",
-                        onClick = {
-                            opcaoSelecionada = "MORADOR"
-                        }
+                        onClick = { opcaoSelecionada = "MORADOR" }
                     )
-
-                    Spacer(
-                        modifier = Modifier.height(12.dp)
-                    )
-
-
-                    // Opção: Criar casa
+                    Spacer(Modifier.height(12.dp))
                     OpcaoPapelCard(
                         titulo = "Quero criar uma casa",
                         descricao = "Começar do zero",
                         icone = Icons.Default.Add,
                         selecionado = opcaoSelecionada == "CRIAR_CASA",
-                        onClick = {
-                            opcaoSelecionada = "CRIAR_CASA"
-                        }
+                        onClick = { opcaoSelecionada = "CRIAR_CASA" }
                     )
-
-                    Spacer(
-                        modifier = Modifier.height(12.dp)
-                    )
-
-
-                    // Opção: Entrar em uma casa
+                    Spacer(Modifier.height(12.dp))
                     OpcaoPapelCard(
                         titulo = "Quero entrar em uma casa",
                         descricao = "Tenho um convite",
-                        icone = Icons.Default.Search,
+                        icone = Icons.Outlined.MailOutline,
                         selecionado = opcaoSelecionada == "ENTRAR_CASA",
-                        onClick = {
-                            opcaoSelecionada = "ENTRAR_CASA"
-                        }
+                        onClick = { opcaoSelecionada = "ENTRAR_CASA" }
                     )
-
-                    Spacer(
-                        modifier = Modifier.height(20.dp)
-                    )
-
-
-
+                    Spacer(Modifier.height(24.dp))
                     Button(
                         onClick = {
-                            if(opcaoSelecionada == "MORADOR"){
-                                onMoradorClick()
+                            when (opcaoSelecionada) {
+                                "MORADOR" -> onMoradorClick()
+                                "CRIAR_CASA" -> onCriarCasaClick()
+                                "ENTRAR_CASA" -> onEntrarCasaClick()
                             }
                         },
-                        enabled = opcaoSelecionada != null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(52.dp),
-                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.fillMaxWidth().height(52.dp),
+                        shape = CircleShape,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary,
-                            disabledContainerColor =
-                                MaterialTheme.colorScheme.primary.copy(
-                                    alpha = 0.35f
-                                ),
-                            disabledContentColor =
-                                MaterialTheme.colorScheme.onPrimary.copy(
-                                    alpha = 0.70f
-                                )
+                            containerColor = colors.primary,
+                            contentColor = colors.onPrimary
                         )
                     ) {
-
-                        Text(
-                            text = "Continuar",
-                            style = MaterialTheme.typography.labelLarge
-                        )
+                        Text("Continuar", style = MaterialTheme.typography.labelLarge)
                     }
                 }
             }
         }
     }
 }
-
 
 @Composable
 fun OpcaoPapelCard(
@@ -245,73 +155,42 @@ fun OpcaoPapelCard(
     selecionado: Boolean,
     onClick: () -> Unit
 ) {
-
+    val colors = MaterialTheme.colorScheme
     Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                onClick()
-            },
+        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).clickable(onClick = onClick),
         shape = RoundedCornerShape(16.dp),
-        color = if (selecionado) {
-            MaterialTheme.colorScheme.secondaryContainer
-        } else {
-            MaterialTheme.colorScheme.surfaceVariant
-        },
-        border = if (selecionado) {
-            BorderStroke(
-                width = 1.dp,
-                color = CasaJuntaGreen
-            )
-        } else {
-            BorderStroke(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.outline
-            )
-        }
+        color = if (selecionado) colors.primaryContainer else colors.surfaceVariant,
+        border = BorderStroke(1.dp, if (selecionado) colors.primary else colors.outline)
     ) {
-
         Row(
-            modifier = Modifier.padding(
-                horizontal = 16.dp,
-                vertical = 14.dp
-            ),
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-
-            Icon(
-                imageVector = icone,
-                contentDescription = titulo,
-                tint = CasaJuntaGreen
-            )
-
-            Spacer(
-                modifier = Modifier.width(12.dp)
-            )
-
-            Column(
-                modifier = Modifier.weight(1f)
+            Surface(
+                modifier = Modifier.size(44.dp),
+                shape = RoundedCornerShape(12.dp),
+                color = if (selecionado) colors.surface else colors.primaryContainer
             ) {
-
-                Text(
-                    text = titulo,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-
-                Text(
-                    text = descricao,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(icone, contentDescription = null, tint = colors.primary, modifier = Modifier.size(24.dp))
+                }
             }
-
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowRight,
-                contentDescription = "Selecionar opção",
-                tint = CasaJuntaGreen
-            )
+            Spacer(Modifier.width(14.dp))
+            Column(Modifier.weight(1f)) {
+                Text(titulo, style = MaterialTheme.typography.titleMedium, color = colors.onSurface)
+                Text(descricao, style = MaterialTheme.typography.bodyMedium, color = colors.onSurfaceVariant)
+            }
+            Box(Modifier.size(22.dp), contentAlignment = Alignment.Center) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    shape = CircleShape,
+                    color = if (selecionado) colors.primary else colors.surface,
+                    border = BorderStroke(2.dp, if (selecionado) colors.primary else colors.onSurfaceVariant)
+                ) {}
+                if (selecionado) {
+                    Surface(Modifier.size(10.dp), shape = CircleShape, color = colors.onPrimary) {}
+                }
+            }
         }
     }
 }
