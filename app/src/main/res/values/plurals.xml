@@ -1,0 +1,26 @@
+<resources>
+    <plurals name="home_bills_count">
+        <item quantity="one">%d conta</item>
+        <item quantity="other">%d contas</item>
+    </plurals>
+    <plurals name="home_bills_due_in_days">
+        <item quantity="one">em %d dia</item>
+        <item quantity="other">em %d dias</item>
+    </plurals>
+    <plurals name="home_bills_due">
+        <item quantity="one">Vence %s</item>
+        <item quantity="other">Vencem %s</item>
+    </plurals>
+    <plurals name="home_bills_due_today">
+        <item quantity="one">Vence hoje</item>
+        <item quantity="other">Vencem hoje</item>
+    </plurals>
+    <plurals name="home_pantry_missing">
+        <item quantity="one">%d item em falta</item>
+        <item quantity="other">%d itens em falta</item>
+    </plurals>
+    <plurals name="home_pantry_restock">
+        <item quantity="one">Precisa ser reposto</item>
+        <item quantity="other">Precisam ser repostos</item>
+    </plurals>
+</resources>
