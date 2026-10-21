@@ -3,27 +3,37 @@ package br.edu.ifal.casajunta.ui.screens.onboarding
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.outlined.MailOutline
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import br.edu.ifal.casajunta.R
+
+import br.edu.ifal.casajunta.ui.theme.CasaJuntaTheme
+import br.edu.ifal.casajunta.ui.theme.CasaJuntaTheme.extendedColors
+
+private enum class PapelCasa{
+    MORADOR,
+    CRIAR_CASA,
+    ENTRAR_CASA
+}
+
 
 @Composable
 fun OnboardingScreen(
@@ -32,9 +42,10 @@ fun OnboardingScreen(
     onEntrarCasaClick: () -> Unit = {}
 ) {
     var opcaoSelecionada by remember {
-        mutableStateOf<String?>(null)
+        mutableStateOf<PapelCasa?>(null)
     }
     val colors = MaterialTheme.colorScheme
+    val extendedColors = CasaJuntaTheme.extendedColors
 
     BoxWithConstraints(
         modifier = Modifier
@@ -104,36 +115,40 @@ fun OnboardingScreen(
                         titulo = "Sou morador(a)",
                         descricao = "Já faço parte da casa",
                         icone = Icons.Default.People,
-                        selecionado = opcaoSelecionada == "MORADOR",
-                        onClick = { opcaoSelecionada = "MORADOR" }
+                        selecionado = opcaoSelecionada == PapelCasa.MORADOR,
+                        onClick = { opcaoSelecionada = PapelCasa.MORADOR }
                     )
                     Spacer(Modifier.height(12.dp))
                     OpcaoPapelCard(
                         titulo = "Quero criar uma casa",
                         descricao = "Começar do zero",
                         icone = Icons.Default.Add,
-                        selecionado = opcaoSelecionada == "CRIAR_CASA",
-                        onClick = { opcaoSelecionada = "CRIAR_CASA" }
+                        selecionado = opcaoSelecionada == PapelCasa.CRIAR_CASA,
+                        onClick = { opcaoSelecionada =  PapelCasa.CRIAR_CASA }
                     )
                     Spacer(Modifier.height(12.dp))
                     OpcaoPapelCard(
                         titulo = "Quero entrar em uma casa",
                         descricao = "Tenho um convite",
                         icone = Icons.Outlined.MailOutline,
-                        selecionado = opcaoSelecionada == "ENTRAR_CASA",
-                        onClick = { opcaoSelecionada = "ENTRAR_CASA" }
+                        selecionado = opcaoSelecionada == PapelCasa.ENTRAR_CASA,
+                        onClick = { opcaoSelecionada = PapelCasa.ENTRAR_CASA }
                     )
                     Spacer(Modifier.height(24.dp))
                     Button(
                         onClick = {
                             when (opcaoSelecionada) {
-                                "MORADOR" -> onMoradorClick()
-                                "CRIAR_CASA" -> onCriarCasaClick()
-                                "ENTRAR_CASA" -> onEntrarCasaClick()
+
+                                PapelCasa.MORADOR -> onMoradorClick()
+                                PapelCasa.CRIAR_CASA -> onCriarCasaClick()
+                                PapelCasa.ENTRAR_CASA -> onEntrarCasaClick()
+                                null -> Unit
+
                             }
                         },
                         modifier = Modifier.fillMaxWidth().height(52.dp),
                         shape = CircleShape,
+                        enabled = opcaoSelecionada != null,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = colors.primary,
                             contentColor = colors.onPrimary
@@ -157,10 +172,20 @@ fun OpcaoPapelCard(
 ) {
     val colors = MaterialTheme.colorScheme
     Surface(
-        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).clickable(onClick = onClick),
+        modifier = Modifier
+            .fillMaxWidth()
+            .selectable(
+              selected = selecionado,
+                onClick = onClick,
+                role = Role.RadioButton
+            ),
+
         shape = RoundedCornerShape(16.dp),
-        color = if (selecionado) colors.primaryContainer else colors.surfaceVariant,
-        border = BorderStroke(1.dp, if (selecionado) colors.primary else colors.outline)
+        color = if (selecionado) {
+            extendedColors.primaryLight
+        } else {
+            colors.surfaceVariant
+        },        border = BorderStroke(1.dp, if (selecionado) colors.primary else colors.outline)
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 14.dp, vertical = 14.dp),
@@ -169,8 +194,11 @@ fun OpcaoPapelCard(
             Surface(
                 modifier = Modifier.size(44.dp),
                 shape = RoundedCornerShape(12.dp),
-                color = if (selecionado) colors.surface else colors.primaryContainer
-            ) {
+                color = if (selecionado) {
+                    colors.surface
+                } else {
+                    extendedColors.primaryLight
+                }            ) {
                 Box(contentAlignment = Alignment.Center) {
                     Icon(icone, contentDescription = null, tint = colors.primary, modifier = Modifier.size(24.dp))
                 }

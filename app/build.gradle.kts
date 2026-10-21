@@ -37,6 +37,8 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.navigation.compose)
+
     // dependicia dos icones
     implementation(libs.androidx.compose.material.icons.extended)
 
@@ -51,6 +53,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
