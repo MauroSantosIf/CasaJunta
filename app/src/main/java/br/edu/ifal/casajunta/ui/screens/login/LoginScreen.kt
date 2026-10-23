@@ -23,6 +23,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
 import br.edu.ifal.casajunta.R
@@ -73,7 +75,7 @@ fun LoginScreen(
         Spacer(Modifier.height(20.dp))
 
         Text(
-            text = "Bem-vindo de volta",
+            text = "Bem-vindo",
             style = MaterialTheme.typography.headlineLarge,
             color = colors.onBackground
         )
@@ -81,10 +83,11 @@ fun LoginScreen(
         Spacer(Modifier.height(8.dp))
 
         Text(
-            text = "Entre com a conta que você usa na sua casa. Seus dados sincronizam automaticamente.",
+            text = "Entre com seu e-mail e senha para acessar sua casa. Ainda não tem uma conta? Crie uma agora.",
             style = MaterialTheme.typography.bodyMedium,
             color = colors.onSurfaceVariant
         )
+
 
         Spacer(Modifier.height(24.dp))
 
@@ -158,14 +161,32 @@ fun LoginScreen(
 
         Spacer(Modifier.height(12.dp))
 
-        Text(
-            text = "Esqueci minha senha",
-            modifier = Modifier
-                .align(Alignment.End)
-                .clickable { },
-            style = MaterialTheme.typography.labelMedium,
-            color = colors.primary
-        )
+        Row(
+            modifier =  Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment =  Alignment.CenterVertically
+        ){
+            Text(
+                text = "Criar conta",
+                modifier = Modifier.clickable{
+                    // Link para a tela de criação de conta!
+                },
+                style = MaterialTheme.typography.labelLarge,
+                color = colors.primary
+
+            )
+
+            Text(
+                text = "Esqueci minha senha",
+                modifier = Modifier.clickable{
+                   // Link para navegar para a siutação de recuperação
+                },
+                style = MaterialTheme.typography.labelLarge,
+                color = colors.primary
+            )
+
+
+        }
 
         Spacer(Modifier.weight(1f))
 
