@@ -38,3 +38,22 @@ val CasaJuntaErrorLight = Color(0xFFFFDFDC)
 
 val CasaJuntaBorder = Color(0xFFE2E7E5)
 val CasaJuntaDisabled = Color(0xFFB9C3C1)
+
+// Dark
+
+val CasaJuntaDarkPrimary = Color(0xFF4FC7BF)
+val CasaJuntaDarkOnPrimary = Color(0xFF00302E)
+val CasaJuntaDarkSecondary = Color(0xFFF28B83)
+val CasaJuntaDarkOnSecondary = Color(0xFF3B0B07)
+val CasaJuntaDarkBackground = Color(0xFF0F1A1C)
+val CasaJuntaDarkOnBackground = Color(0xFFE4ECEB)
+val CasaJuntaDarkSurface = Color(0xFF182322)
+val CasaJuntaDarkOnSurface = Color(0xFFE4ECEB)
+val CasaJuntaDarkSurfaceVariant = Color(0xFF22302F)
+val CasaJuntaDarkOnSurfaceVariant = Color(0xFF9FB2B0)
+val CasaJuntaDarkError = Color(0xFFFF8A80)
+val CasaJuntaDarkOnError = Color(0xFF4A0905)
+val CasaJuntaDarkOutline = Color(0xFF2C3A39)
+val CasaJuntaDarkPrimaryDark = Color(0xFFA6E6DE)
+val CasaJuntaDarkPrimaryLight = Color(0xFF0F3E3C)
+val CasaJuntaDarkWarning = Color(0xFFF5C665)

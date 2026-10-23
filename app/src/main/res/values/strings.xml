@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">CasaJunta</string>
+
+    <string name="nav_overview">Visão geral</string>
+    <string name="nav_tasks">Tarefas</string>
+    <string name="nav_finances">Finanças</string>
+    <string name="nav_pantry">Despensa</string>
+    <string name="nav_members">Moradores</string>
+
+    <string name="home_brand">CasaJunta</string>
+    <string name="home_greeting">Olá, pessoal!</string>
+    <string name="home_subtitle">Juntos, uma casa mais leve</string>
+    <string name="home_balance_label">Saldo da casa</string>
+    <string name="home_tasks_title">Tarefas concluídas</string>
+    <string name="home_tasks_ratio">%1$d/%2$d</string>
+    <string name="home_tasks_percent">%1$d%%</string>
+    <string name="home_tasks_period">esta semana</string>
+    <string name="home_cd_tasks_progress">%1$d de %2$d tarefas concluídas</string>
+    <string name="home_bills_title">Contas a vencer</string>
+    <string name="home_bills_none">Nenhuma conta</string>
+    <string name="home_pantry_title">Despensa</string>
+    <string name="home_pantry_none">Nada em falta</string>
+    <string name="home_theme_to_dark">Ativar tema escuro</string>
+    <string name="home_theme_to_light">Ativar tema claro</string>
+    <string name="home_cd_notifications">Notificações</string>
+    <string name="home_cd_house_profile">Perfil da casa</string>
+    <string name="home_cd_add_member">Adicionar morador</string>
 </resources>
