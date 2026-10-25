@@ -1,4 +1,8 @@
 package br.edu.ifal.casajunta.model
 
-class Casa {
-}
+data class Casa(
+    val id: Int,
+    val nome: String,
+    val quantidadeMoradores: Int,
+    val principal: Boolean = false
+)
