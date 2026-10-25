@@ -55,7 +55,7 @@ fun AppNavHost(
 
         composable(AppRoutes.MY_HOUSES) {
             MyHousesScreen(
-                onEntrarCasaClick = {
+                onEntrarCasaClick = { casaId ->
                     navController.navigate(AppRoutes.HOME) {
                         launchSingleTop = true
                     }
