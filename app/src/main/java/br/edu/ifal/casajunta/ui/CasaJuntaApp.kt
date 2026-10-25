@@ -8,17 +8,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import br.edu.ifal.casajunta.ui.components.CasaJuntaBottomBar
 import br.edu.ifal.casajunta.ui.navigation.TopLevelDestination
 import br.edu.ifal.casajunta.ui.screens.home.HomeRoute
-
+import br.edu.ifal.casajunta.ui.screens.tarefas.TarefasRoute
 @Composable
 fun CasaJuntaApp(
     isDarkTheme: Boolean,
     onToggleTheme: () -> Unit,
 ) {
-    val selectedDestination by rememberSaveable(
+    var selectedDestination by rememberSaveable(
         stateSaver = Saver(
             save = { it.name },
             restore = { name -> TopLevelDestination.valueOf(name) },
@@ -33,16 +34,31 @@ fun CasaJuntaApp(
             CasaJuntaBottomBar(
                 destinations = TopLevelDestination.entries,
                 selected = selectedDestination,
-                onSelect = { _ ->
-                    // As outras abas ainda não têm tela.
+                onSelect = { destination ->
+                    selectedDestination = destination
                 },
             )
         },
     ) { innerPadding ->
-        HomeRoute(
-            isDarkTheme = isDarkTheme,
-            onToggleTheme = onToggleTheme,
-            modifier = Modifier.padding(innerPadding),
-        )
+
+        when (selectedDestination) {
+            TopLevelDestination.Tasks -> {
+                TarefasRoute(
+                    isDarkTheme = isDarkTheme,
+                    onToggleTheme = onToggleTheme,
+                    onNotificationsClick = {},
+                    onHouseProfileClick = {},
+                    modifier = Modifier.padding(innerPadding)
+                )
+            }
+
+            else -> {
+                HomeRoute(
+                    isDarkTheme = isDarkTheme,
+                    onToggleTheme = onToggleTheme,
+                    modifier = Modifier.padding(innerPadding)
+                )
+            }
+        }
     }
 }
