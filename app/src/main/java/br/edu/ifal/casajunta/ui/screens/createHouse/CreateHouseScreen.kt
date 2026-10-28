@@ -255,7 +255,7 @@ fun CreateHouseScreen() {
                                 it.isDigit()
                             }
                         },
-                        label = { Text("Meta semanal *") },
+                        label = { Text("Ponto Sem. *") },
                         placeholder = { Text("Ex.: 2000") },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Number
