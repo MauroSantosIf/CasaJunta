@@ -37,6 +37,7 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.navigation.compose)
 
     // dependicia dos icones
