@@ -1,6 +1,10 @@
 package br.edu.ifal.casajunta.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -9,6 +13,7 @@ import br.edu.ifal.casajunta.ui.CasaJuntaApp
 import br.edu.ifal.casajunta.ui.screens.login.LoginRoute
 import br.edu.ifal.casajunta.ui.screens.myHouses.MyHousesScreen
 import br.edu.ifal.casajunta.ui.screens.onboarding.OnboardingScreen
+import br.edu.ifal.casajunta.ui.screens.createHouse.CreateHouseScreen
 
 private object AppRoutes {
 
@@ -16,6 +21,8 @@ private object AppRoutes {
     const val ONBOARDING = "onboarding"
     const val LOGIN = "login"
     const val MY_HOUSES = "my_houses"
+
+    const val CREATE_HOUSE = "create_house"
 }
 
 @Composable
@@ -24,17 +31,29 @@ fun AppNavHost(
     onToggleTheme: () -> Unit,
     navController: NavHostController = rememberNavController()
 ) {
+
+    var destinoAposLogin by rememberSaveable { mutableStateOf(AppRoutes.MY_HOUSES) }
+
     NavHost(
         navController = navController,
         startDestination = AppRoutes.ONBOARDING
-    ) {
+    ){
 
         composable(AppRoutes.ONBOARDING) {
+
             OnboardingScreen(
                 onMoradorClick = {
+                    destinoAposLogin = AppRoutes.MY_HOUSES
+                    navController.navigate(AppRoutes.LOGIN)
+                },
+                onCriarCasaClick = {
+                    destinoAposLogin = AppRoutes.CREATE_HOUSE
                     navController.navigate(AppRoutes.LOGIN)
                 }
             )
+
+
+
         }
 
         composable(AppRoutes.LOGIN) {
@@ -43,7 +62,7 @@ fun AppNavHost(
                     navController.popBackStack()
                 },
                 onLoginSuccess = {
-                    navController.navigate(AppRoutes.MY_HOUSES) {
+                    navController.navigate(destinoAposLogin) {
                         popUpTo(AppRoutes.ONBOARDING) {
                             inclusive = true
                         }
@@ -57,6 +76,19 @@ fun AppNavHost(
             MyHousesScreen(
                 onEntrarCasaClick = { casaId ->
                     navController.navigate(AppRoutes.HOME) {
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+
+        composable(AppRoutes.CREATE_HOUSE) {
+            CreateHouseScreen(
+                onVoltarClick = {
+                    navController.navigate(AppRoutes.ONBOARDING){
+                        popUpTo(AppRoutes.CREATE_HOUSE){
+                            inclusive = true
+                        }
                         launchSingleTop = true
                     }
                 }

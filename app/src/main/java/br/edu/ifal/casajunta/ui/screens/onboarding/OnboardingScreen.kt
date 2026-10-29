@@ -171,6 +171,7 @@ fun OpcaoPapelCard(
     onClick: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
+    val extendedColors = CasaJuntaTheme.extendedColors
     Surface(
         modifier = Modifier
             .fillMaxWidth()

@@ -49,7 +49,10 @@ import androidx.compose.ui.text.style.TextAlign
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateHouseScreen() {
+fun CreateHouseScreen(
+    onVoltarClick: () -> Unit = {}
+) {
+
     var nomeCasa by rememberSaveable { mutableStateOf("") }
     var tipoResidencia by rememberSaveable { mutableStateOf("") }
     var capacidade by rememberSaveable { mutableStateOf("") }
@@ -91,9 +94,7 @@ fun CreateHouseScreen() {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             IconButton(
-                onClick = {
-                    // A navegação será implementada depois.
-                }
+                onClick = onVoltarClick
             ) {
                 Icon(
                     imageVector = Icons.Outlined.ArrowBack,
